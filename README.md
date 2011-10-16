@@ -1,4 +1,4 @@
-# Bing -- Call Bing web services from nodejs.
+# Bing - Call Bing web services from nodejs.
 
 ## About
 
