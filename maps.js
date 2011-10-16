@@ -26,7 +26,7 @@ exports.getTransitRoute = function(startLocation, endLocation, callback) {
         options = {
             'optimize': 'time', 
             'distanceUnit': 'mi', 
-            'travelTime': curTime.getHours() + ":" + curTime.getMinutes() + ":" + curTime.getSeconds(),
+            'travelTime': curTime.getUTCHours() + ":" + curTime.getUTCMinutes() + ":" + curTime.getUTCSeconds(),
             'timeType': 'Departure',
             'maxSolutionCount': 3,
             'outputType': 'json'
