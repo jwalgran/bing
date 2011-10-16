@@ -1,0 +1,21 @@
+{
+    "author": "Justin Walgran <justin@walgran.com>",
+    "name": "bing",
+    "description": "A library for making requests to Bing web services.",
+    "tags" : ["search", "transit"]
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jwalgran/bing.git"
+    },
+    "engines": {
+        "node": ">= 0.3.6"
+    },
+    "dependencies": {
+        "request": "2.1.1"
+    },
+    "bugs" : { 
+        "web" : "http://github.com/jwalgran/request/issues"
+    },
+    "main" : "./bing"
+}
