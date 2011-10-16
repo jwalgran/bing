@@ -2,7 +2,7 @@
     "author": "Justin Walgran <justin@walgran.com>",
     "name": "bing",
     "description": "A library for making requests to Bing web services.",
-    "tags" : ["search", "transit"]
+    "tags" : ["search", "transit"],
     "version": "0.0.1",
     "repository": {
         "type": "git",
