@@ -15,7 +15,7 @@
         "request": "2.1.1"
     },
     "bugs" : { 
-        "web" : "http://github.com/jwalgran/request/issues"
+        "web" : "http://github.com/jwalgran/bing/issues"
     },
     "main" : "./bing"
 }
