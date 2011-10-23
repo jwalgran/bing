@@ -7,6 +7,10 @@ the current version only has support for searching for transit directions betwee
 
 ## Installation
 
+From npm:
+
+    npm install bing
+
 From source:
 
     git clone git://github.com/jwalgran/bing.git 
