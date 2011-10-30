@@ -15,7 +15,7 @@
         "request": "2.1.1"
     },
     "bugs" : { 
-        "web" : "http://github.com/jwalgran/bing/issues"
+        "url" : "http://github.com/jwalgran/bing/issues"
     },
     "main" : "./bing",
     "licenses" : [{
