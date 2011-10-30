@@ -189,7 +189,7 @@ var request = require('request'),
             }
             else {
                 if (callback) {
-                    callback(err, {"error": {"statusCode": response.statusCode, "body": body}});
+                    callback(err, {"error": {"statusCode": response.statusCode, "body": JSON.parse(body)}});
                 }
             }
         });
