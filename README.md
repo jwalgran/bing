@@ -23,6 +23,8 @@ From source:
     > var bing = require('bing');
     > bing.maps.getTransitRoute('100 market st, philadelphia', 
     ...'908 n 3rd st, philadelphia', function(err, resp) { if (!err) { console.dir(resp) } });
+    > bing.maps.getWalkingRoute('100 market st, philadelphia',
+    ...'908 n 3rd st, philadelphia', function(err, resp) { if (!err) { console.dir(resp) } });
     
 ## Reference
 
