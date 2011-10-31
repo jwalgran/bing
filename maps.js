@@ -117,7 +117,7 @@ var request = require('request'),
      */
     getDefaultTransitOptions = function() {
         var options = getDefaultOptions();
-        options['travelTime'] = curTime.getUTCHours() + ":" + curTime.getUTCMinutes() + ":" + curTime.getUTCSeconds();
+        options['travelTime'] = (curTime.getUTCMonth()+1) + "/" + curTime.getUTCDate() + "/" + curTime.getUTCFullYear() + " " + curTime.getUTCHours() + ":" + curTime.getUTCMinutes() + ":" + curTime.getUTCSeconds();
         options['timeType'] = 'Departure'; // The Bing API can also accept 'Arrival' or 'LastAvailable'
         options['maxSolutionCount'] =  3;
         return options;
