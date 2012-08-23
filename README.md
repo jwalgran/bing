@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jwalgran/bing.png)](http://travis-ci.org/jwalgran/bing)
 # Bing - Call Bing web services from nodejs.
 
 ## About
