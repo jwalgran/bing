@@ -36,7 +36,15 @@ var request = require('request'),
     WALKING_RESOURCE = 'Routes/Walking',
 
     /**
-     * Each application needs a distict API key so this module expects a
+     * This URL fragment is concatenated with the `SERVICE_URL` to build
+     * the full URL used to make requests for walking routes.
+     * @type {String}
+     * @private
+     */
+    DRIVING_RESOURCE = 'Routes/Driving',
+
+    /**
+     * Each application needs a distinct API key so this module expects a
      * `BING_MAPS_API_KEY` environment variable to be defined.
      * @type {String}
      * @private
@@ -62,7 +70,7 @@ var request = require('request'),
             return '';
         }
     },
-    
+
     /**
      * Build a URL by concatenating the specified `queryArgs` string with
      * a base URL to create a full URL.
@@ -85,6 +93,18 @@ var request = require('request'),
      */
     createWalkingUrl = function(queryArgs) {
         return SERVICE_URL + '/' + WALKING_RESOURCE + objectToQueryString(queryArgs);
+    },
+
+    /**
+     * Build a URL by concatenating the specified `queryArgs` string with
+     * a base URL to create a full URL to the walking route service.
+     * @param {String} queryArgs A properly formatted query argument string
+     * prefixed with '?'.
+     * @private
+     * returns String
+     */
+    createDrivingUrl = function(queryArgs) {
+        return SERVICE_URL + '/' + DRIVING_RESOURCE + objectToQueryString(queryArgs);
     },
 
     /**
@@ -134,6 +154,20 @@ var request = require('request'),
     getDefaultWalkingOptions = function() {
         var options = getDefaultOptions();
         options['optimize'] = 'distance';
+        return options
+    },
+
+    /**
+     * Create a default options hash specific to driving directions web service requests.
+     *   - optimize = distance
+     *   - distanceUnit = mi (miles)
+     *   - outputType = json
+     * @private
+     * returns Object
+     */
+    getDefaultDrivingOptions = function() {
+        var options = getDefaultOptions();
+        options['optimize'] = 'time';
         return options
     },
 
@@ -264,5 +298,41 @@ exports.getWalkingRoute = function(startLocation, endLocation, callback) {
     var options = getDefaultWalkingOptions(),
         queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
         requestUrl = createWalkingUrl(queryStringArgs);
+    callBingApi(requestUrl, callback);
+}
+
+/**
+ * Make a request to the Bing maps API to get driving directions between
+ * two addresses.
+ * @public
+ * @param {String} startLocation The starting address for the directions.
+ * @param {String} endLocation The destination address for the directions.
+ * @param {Function} callback The function to call when a response is received
+ * from the Bing API or an error occurs.
+ *
+ * If the request to the Bing API returns an error, or a non 200 response code
+ * the the specified callback will be invoked with the an error object as the
+ * first parameter.
+ * @example {"error":{
+ *     "statusCode": <The HTTP code returned from the Bing API request>,
+ *     "body": <The raw text response returned from the Bing API>
+ * }}
+ *
+ * @example var callback = function(err, obj) {
+ *     if(!err) {
+ *         // Process the response object, which was created by parsing the JSON
+ *         // returned from the Bing API.
+ *     } else {
+ *         // Handle the error.
+ *     }
+ * };
+ * bing.maps.getDrivingRoute('100 N Broad St, Philadelphia','908 N 3rd St., Philadelphia', callback);
+ *
+ * @since 0.0.6
+ */
+exports.getDrivingRoute = function(startLocation, endLocation, callback) {
+    var options = getDefaultDrivingOptions(),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+        requestUrl = createDrivingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
