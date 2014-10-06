@@ -52,6 +52,17 @@ var request = require('request'),
     BING_MAPS_API_KEY = process.env.BING_MAPS_API_KEY,
 
     /**
+     * Default options, stored here so they can be set by the developer
+     * @type {Object}
+     * @private
+     */
+    DEFAULT_OPTIONS = {
+        'optimize': 'time', // The Bing API can also accept 'distance' or 'timeWithTraffic'
+        'distanceUnit': 'mi', // The Bing API can also accept 'km'
+        'outputType': 'json' // The Bing API can also accept 'xml'
+    };
+
+    /**
      * Treat the specified `obj` object as a flat collection of key-value pairs
      * and convert it to a query string prefixed with ? and ready to be concatenated
      * with a URL.
@@ -117,12 +128,15 @@ var request = require('request'),
      */
     getDefaultOptions = function() {
         curTime = new Date();
-        return {
-            'optimize': 'time', // The Bing API can also accept 'distance' or 'timeWithTraffic'
-            'distanceUnit': 'mi', // The Bing API can also accept 'km'
-            'outputType': 'json' // The Bing API can also accept 'xml'
-        };
+        return DEFAULT_OPTIONS;
     },
+
+    /**
+     * Set the default hash of options for Bing Maps web service calls.
+     */
+    setDefaultOptions = function(options) {
+      DEFAULT_OPTIONS = options;
+    }
 
     /**
      * Create a default options hash specific to transit directions web service requests.
