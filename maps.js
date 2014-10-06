@@ -228,16 +228,11 @@ var request = require('request'),
             }
         });
     };
-
-    mergeOptions = function(options, defaults) {
-      var results = options.concat(defaults);
-      for(var i=0; i<results.length; ++i) {
-          for(var j=i+1; j<results.length; ++j) {
-              if(results[i] === results[j])
-                results.splice(j--, 1);
-          }
-      }
-
+    
+    mergeOptions = function(options, defaults){
+      var results = {};
+        for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
+        for (var attrname in options) { results[attrname] = options[attrname]; }
       return results;
     };
 
