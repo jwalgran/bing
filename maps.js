@@ -271,7 +271,7 @@ var request = require('request'),
  *
  * @since 0.0.1
  */
-exports.getTransitRoute = function(startLocation, endLocation, callback) {
+exports.getTransitRoute = function(startLocation, endLocation, options, callback) {
     var options = mergeOptions(options, getDefaultTransitOptions()),
         queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
         requestUrl = createTransitUrl(queryStringArgs);
