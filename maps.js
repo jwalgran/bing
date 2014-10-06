@@ -52,17 +52,6 @@ var request = require('request'),
     BING_MAPS_API_KEY = process.env.BING_MAPS_API_KEY,
 
     /**
-     * Default options, stored here so they can be set by the developer
-     * @type {Object}
-     * @private
-     */
-    DEFAULT_OPTIONS = {
-        'optimize': 'time', // The Bing API can also accept 'distance' or 'timeWithTraffic'
-        'distanceUnit': 'mi', // The Bing API can also accept 'km'
-        'outputType': 'json' // The Bing API can also accept 'xml'
-    };
-
-    /**
      * Treat the specified `obj` object as a flat collection of key-value pairs
      * and convert it to a query string prefixed with ? and ready to be concatenated
      * with a URL.
@@ -128,15 +117,12 @@ var request = require('request'),
      */
     getDefaultOptions = function() {
         curTime = new Date();
-        return DEFAULT_OPTIONS;
+        return {
+            'optimize': 'time', // The Bing API can also accept 'distance' or 'timeWithTraffic'
+            'distanceUnit': 'mi', // The Bing API can also accept 'km'
+            'outputType': 'json' // The Bing API can also accept 'xml'
+        };
     },
-
-    /**
-     * Set the default hash of options for Bing Maps web service calls.
-     */
-    setDefaultOptions = function(options) {
-      DEFAULT_OPTIONS = options;
-    }
 
     /**
      * Create a default options hash specific to transit directions web service requests.
@@ -243,6 +229,18 @@ var request = require('request'),
         });
     };
 
+    mergeOptions = function(options, defaults) {
+      var results = options.concat(defaults);
+      for(var i=0; i<results.length; ++i) {
+          for(var j=i+1; j<results.length; ++j) {
+              if(results[i] === results[j])
+                results.splice(j--, 1);
+          }
+      }
+
+      return results;
+    };
+
 /**
  * Make a request to the Bing maps API to get transit directions between
  * two addresses.
@@ -273,7 +271,7 @@ var request = require('request'),
  * @since 0.0.1
  */
 exports.getTransitRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultTransitOptions(),
+    var options = mergeOptions(options, getDefaultTransitOptions()),
         queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
         requestUrl = createTransitUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
@@ -308,8 +306,8 @@ exports.getTransitRoute = function(startLocation, endLocation, callback) {
  *
  * @since 0.0.3
  */
-exports.getWalkingRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultWalkingOptions(),
+exports.getWalkingRoute = function(startLocation, endLocation, options, callback) {
+    var options = mergeOptions(options, getDefaultWalkingOptions()),
         queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
         requestUrl = createWalkingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
@@ -344,8 +342,8 @@ exports.getWalkingRoute = function(startLocation, endLocation, callback) {
  *
  * @since 0.0.6
  */
-exports.getDrivingRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultDrivingOptions(),
+exports.getDrivingRoute = function(startLocation, endLocation, options, callback) {
+    var options = mergeOptions(options, getDefaultDrivingOptions()),
         queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
         requestUrl = createDrivingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
