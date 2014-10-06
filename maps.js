@@ -229,10 +229,16 @@ var request = require('request'),
         });
     },
 
+    /**
+     * Merge options objects
+     * @param {Object} options The custom options to be merged with defaults
+     * @param {Function} defaults Default options
+     * @private
+     */
     mergeOptions = function(options, defaults) {
       var results = {};
       for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
-      for (var attrname in options) { defaults[attrname] = options[attrname]; }
+      for (var attrname in options) { results[attrname] = options[attrname]; }
       return results;
     };
 
