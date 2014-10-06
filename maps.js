@@ -227,12 +227,12 @@ var request = require('request'),
                 }
             }
         });
-    };
-    
+    },
+
     mergeOptions = function(options, defaults){
       var results = {};
-        for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
-        for (var attrname in options) { results[attrname] = options[attrname]; }
+      for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
+      for (var attrname in options) { defaults[attrname] = options[attrname]; }
       return results;
     };
 
