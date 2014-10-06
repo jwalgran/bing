@@ -229,7 +229,7 @@ var request = require('request'),
         });
     },
 
-    mergeOptions = function(options, defaults){
+    mergeOptions = function(options, defaults) {
       var results = {};
       for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
       for (var attrname in options) { defaults[attrname] = options[attrname]; }
