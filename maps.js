@@ -250,6 +250,7 @@ var request = require('request'),
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
@@ -286,6 +287,7 @@ exports.getTransitRoute = function(startLocation, endLocation, callback, options
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
@@ -322,6 +324,7 @@ exports.getWalkingRoute = function(startLocation, endLocation, callback, options
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
