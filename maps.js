@@ -271,9 +271,9 @@ var request = require('request'),
  *
  * @since 0.0.1
  */
-exports.getTransitRoute = function(startLocation, endLocation, options, callback) {
-    var options = mergeOptions(options, getDefaultTransitOptions()),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getTransitRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultTransitOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createTransitUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
@@ -307,9 +307,9 @@ exports.getTransitRoute = function(startLocation, endLocation, options, callback
  *
  * @since 0.0.3
  */
-exports.getWalkingRoute = function(startLocation, endLocation, options, callback) {
-    var options = mergeOptions(options, getDefaultWalkingOptions()),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getWalkingRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultWalkingOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createWalkingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
@@ -343,9 +343,9 @@ exports.getWalkingRoute = function(startLocation, endLocation, options, callback
  *
  * @since 0.0.6
  */
-exports.getDrivingRoute = function(startLocation, endLocation, options, callback) {
-    var options = mergeOptions(options, getDefaultDrivingOptions()),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getDrivingRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultDrivingOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createDrivingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
