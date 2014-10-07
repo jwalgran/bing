@@ -227,6 +227,19 @@ var request = require('request'),
                 }
             }
         });
+    },
+
+    /**
+     * Merge options objects
+     * @param {Object} options The custom options to be merged with defaults
+     * @param {Function} defaults Default options
+     * @private
+     */
+    mergeOptions = function(options, defaults) {
+      var results = {};
+      for (var attrname in defaults) { results[attrname] = defaults[attrname]; }
+      for (var attrname in options) { results[attrname] = options[attrname]; }
+      return results;
     };
 
 /**
@@ -237,6 +250,7 @@ var request = require('request'),
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
@@ -258,9 +272,9 @@ var request = require('request'),
  *
  * @since 0.0.1
  */
-exports.getTransitRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultTransitOptions(),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getTransitRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultTransitOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createTransitUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
@@ -273,6 +287,7 @@ exports.getTransitRoute = function(startLocation, endLocation, callback) {
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
@@ -294,9 +309,9 @@ exports.getTransitRoute = function(startLocation, endLocation, callback) {
  *
  * @since 0.0.3
  */
-exports.getWalkingRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultWalkingOptions(),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getWalkingRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultWalkingOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createWalkingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
@@ -309,6 +324,7 @@ exports.getWalkingRoute = function(startLocation, endLocation, callback) {
  * @param {String} endLocation The destination address for the directions.
  * @param {Function} callback The function to call when a response is received
  * from the Bing API or an error occurs.
+ * @param {Object} options Options for the API call (override defaults)
  *
  * If the request to the Bing API returns an error, or a non 200 response code
  * the the specified callback will be invoked with the an error object as the
@@ -330,9 +346,9 @@ exports.getWalkingRoute = function(startLocation, endLocation, callback) {
  *
  * @since 0.0.6
  */
-exports.getDrivingRoute = function(startLocation, endLocation, callback) {
-    var options = getDefaultDrivingOptions(),
-        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, options),
+exports.getDrivingRoute = function(startLocation, endLocation, callback, options) {
+    var merged_options = mergeOptions(options || {}, getDefaultDrivingOptions()),
+        queryStringArgs = convertLocationsAndOptionsToQueryStringArgs(startLocation, endLocation, merged_options),
         requestUrl = createDrivingUrl(queryStringArgs);
     callBingApi(requestUrl, callback);
 }
